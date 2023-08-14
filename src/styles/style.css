@@ -1,0 +1,10 @@
+.main-container{
+    display: flex;
+    justify-content: center;
+}
+.left-container{
+    border: 1px solid rebeccapurple;
+}
+.right-container{
+    border: 1px solid rebeccapurple;
+}
