@@ -1,10 +1,20 @@
 .main-container{
     display: flex;
     justify-content: center;
+    width: 100%;
+    align-items: center;
+    padding: 5px;
 }
 .left-container{
     border: 1px solid rebeccapurple;
+    display: flex;
+    padding: 5px;
+
 }
 .right-container{
     border: 1px solid rebeccapurple;
+}
+label{
+    padding: 5px;
+
 }
