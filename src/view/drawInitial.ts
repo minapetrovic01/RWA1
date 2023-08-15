@@ -1,3 +1,6 @@
+import { fromEvent } from "rxjs";
+import { combineHandlers, handleNumberChange } from "../logic/eventHandlers";
+
 export function drawInit(host: HTMLElement) {
     const container:HTMLElement=drawDiv("main-container",host);
     const left:HTMLElement=drawDiv("left-container",container);
@@ -8,8 +11,8 @@ export function drawInit(host: HTMLElement) {
 
   function drawNumberPickers(host: HTMLElement):HTMLElement{
     const container:HTMLElement=drawDiv("numbers-container",host);
-    createNumberInput("Br. alternativa",container,"alternativa-num-input",2,10);
-    createNumberInput("Br. kriterijuma",container,"kriterijum-num-input",1,5);
+    const alternativa:HTMLElement=createNumberInput("Br. alternativa",container,"alternativa-num-input",2,10);
+    const criteria:HTMLElement=createNumberInput("Br. kriterijuma",container,"kriterijum-num-input",1,5);
     return container;
   }
 
@@ -23,8 +26,9 @@ export function drawInit(host: HTMLElement) {
   function createNumberInput(labelText: string,host:HTMLElement,className:string,minValue:number,maxValue:number): HTMLInputElement {
     const label = document.createElement('label');
     label.textContent = labelText;
-
     const input = document.createElement('input');
+    
+
     input.type = 'number';
     input.min = minValue.toString();
     input.max = maxValue.toString();
@@ -42,6 +46,7 @@ function drawExpert(host: HTMLElement){
 }
 
 function initialDrawExperts(host: HTMLElement){
+  const container:HTMLElement=drawDiv("experts-container",host);
 
 }
 
