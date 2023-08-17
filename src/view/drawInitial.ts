@@ -1,5 +1,6 @@
 import { fromEvent } from "rxjs";
 import { combineHandlers, handleNumberChange } from "../logic/eventHandlers";
+import { getCriteriaNumber } from "../globals";
 
 export function drawInit(host: HTMLElement) {
     const container:HTMLElement=drawDiv("main-container",host);
@@ -41,16 +42,46 @@ export function drawInit(host: HTMLElement) {
     return input;
 }
 
-function drawExpert(host: HTMLElement){
+export function drawExpert(host: HTMLElement,expertNum:number){
+  const container:HTMLElement=drawDiv("expert-container"+expertNum,host);
+  const label:HTMLElement=document.createElement("label");
+  label.textContent="Ex. "+expertNum;
+  container.appendChild(label);
+  const checkbox:HTMLInputElement=document.createElement("input");
+  checkbox.type="checkbox";
+  checkbox.checked=true;
+  checkbox.classList.add("expert-checkbox"+expertNum);
+  container.appendChild(checkbox);
+  for(let i=0;i<getCriteriaNumber();i++){
+    drawExpertInput(container,i+1);
+  }
+}
 
+function drawExpertInput(host: HTMLElement,critNum:number){
+  const container:HTMLElement=drawDiv("expert-input-container",host);
+  const label:HTMLElement=document.createElement("label");
+  label.textContent="K"+critNum;
+  container.appendChild(label);
+  const input:HTMLInputElement=document.createElement("input");
+  input.type="number";
+  input.min="0";
+  input.max="100";
+  input.value="0";
+  input.classList.add("expert-input");
+  container.appendChild(input);
 }
 
 function initialDrawExperts(host: HTMLElement){
   const container:HTMLElement=drawDiv("experts-container",host);
-
+  const buttonAdd:HTMLElement=document.createElement("button");
+  buttonAdd.textContent="Add expert";
+  buttonAdd.classList.add("add-expert-button");
+  container.appendChild(buttonAdd);
+  drawExpert(container,1);
 }
 
 function initDrawWeights(host: HTMLElement){
+  
 
 }
 

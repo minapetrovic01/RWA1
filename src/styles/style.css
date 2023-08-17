@@ -8,13 +8,27 @@
 .left-container{
     border: 1px solid rebeccapurple;
     display: flex;
+    flex-direction: column;
     padding: 5px;
 
 }
 .right-container{
     border: 1px solid rebeccapurple;
 }
+div[class^='expert-container']{
+    border: 1px solid rebeccapurple;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+}
 label{
     padding: 5px;
 
+}
+.add-expert-button{
+    padding: 5px;
+    margin: 5px;
+    width: 100%;
+    position: relative;
 }
