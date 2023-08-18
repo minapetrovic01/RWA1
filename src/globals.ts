@@ -1,6 +1,7 @@
  var alternativeNumber:number=2;
  var criteriaNumber:number=3;
  var expertNumber:number=1;
+ 
 
 export function setAlternativeNumber(num:number){
     alternativeNumber=num;

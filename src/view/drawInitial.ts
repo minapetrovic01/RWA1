@@ -8,6 +8,7 @@ export function drawInit(host: HTMLElement) {
     const right:HTMLElement=drawDiv("right-container",container);
     drawNumberPickers(left);
     initialDrawExperts(left);
+    initDrawWeights(left);
   }
 
   function drawNumberPickers(host: HTMLElement):HTMLElement{
@@ -81,8 +82,26 @@ function initialDrawExperts(host: HTMLElement){
 }
 
 function initDrawWeights(host: HTMLElement){
-  
+  const container:HTMLElement=drawDiv("weights-container",host);
+  const label:HTMLElement=document.createElement("label");
+  label.textContent="Weights:";
+  container.appendChild(label);
+  for(let i=0;i<getCriteriaNumber();i++){
+    drawWeightCalculated(container,i+1);
+  }
+}
 
+function drawWeightCalculated(host: HTMLElement,critNum:number){
+  const container:HTMLElement=drawDiv("weight-container",host);
+  const label:HTMLElement=document.createElement("label");
+  label.textContent="K"+critNum;
+  container.appendChild(label);
+  const input:HTMLInputElement=document.createElement("input");
+  input.type="number";
+  input.value="0";
+  input.readOnly=true;
+  input.classList.add("weight-input");
+  container.appendChild(input);
 }
 
 export function initDrawMatrix(host: HTMLElement,altNum:number,critNum:number){

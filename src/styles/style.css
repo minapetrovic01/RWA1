@@ -32,3 +32,13 @@ label{
     width: 100%;
     position: relative;
 }
+.weights-container{
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    justify-content: space-between;
+    padding-top: 30%;
+}
+.weight-input{
+    width: 30%;
+}
