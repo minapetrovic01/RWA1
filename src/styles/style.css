@@ -42,3 +42,46 @@ label{
 .weight-input{
     width: 30%;
 }
+.right-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    width: 100%;
+}
+.matrix-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+}
+.name-input-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+}
+.alt-names-container{
+    display: flex;
+    flex-direction: row;
+   
+    padding: 5px;
+}
+.crt-names-container{
+    display: flex;
+    flex-direction: row;
+   
+    padding: 5px;
+}
+.matrix-row-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+.matrix-row-container:nth-child(odd){
+    background-color: #f2f2f2;
+}
+.matrix-row-container:nth-child(even){
+    background-color: #ffffff;
+}
