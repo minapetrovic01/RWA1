@@ -1,6 +1,11 @@
- var alternativeNumber:number=2;
- var criteriaNumber:number=3;
- var expertNumber:number=1;
+ let alternativeNumber:number=2;
+ let criteriaNumber:number=1;
+ let expertNumber:number=1;
+
+ let expertsActive:boolean[]=new Array();
+
+ let weights:number[]=new Array();
+
  
 
 export function setAlternativeNumber(num:number){
@@ -11,6 +16,10 @@ export function setCriteriaNumber(num:number){
 }
 export function setExpertNumber(num:number){
     expertNumber=num;
+    expertsActive=new Array(num).fill(true);
+}
+export function getExpertsActive():boolean[]{
+    return expertsActive;
 }
 export function getAlternativeNumber():number{
     return alternativeNumber;
@@ -21,11 +30,9 @@ export function getCriteriaNumber():number{
 export function getExpertNumber():number{
     return expertNumber;
 }
-
-// declare global {
-//     var alternativeNumber: number;
-//     var criteriaNumber: number;
-//     var expertNumber: number;
-// }
-
-// export {};
+export function getWeights():number[]{
+    return weights;
+}
+export function setWeights(w:number[]){
+    weights=w;
+}
