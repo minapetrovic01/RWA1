@@ -1,6 +1,6 @@
 import { fromEvent } from "rxjs";
-import { combineHandlers, handleNumberChange } from "../logic/eventHandlers";
-import { getAlternativeNumber, getCriteriaNumber } from "../globals";
+import { combineHandlers, handleExpertCheckbox, handleNumberChange } from "../logic/eventHandlers";
+import { addExpertsActive, getAlternativeNumber, getCriteriaNumber } from "../globals";
 import { Chart } from "chart.js";
 
 export function drawInit(host: HTMLElement) {
@@ -17,6 +17,7 @@ export function initDrawLeftContent(host: HTMLElement) {
   const container: HTMLElement = drawDiv("left-container-content", host);
   initialDrawExperts(container);
   initDrawWeights(container);
+  initDrawLabels(container);
 }
 
 function drawNumberPickers(host: HTMLElement): HTMLElement {
@@ -73,6 +74,7 @@ export function drawExpert(host: HTMLElement, expertNum: number) {
   for (let i = 0; i < getCriteriaNumber(); i++) {
     drawExpertInput(container, i + 1,expertNum);
   }
+  //addExpertsActive();
 }
 
 function drawExpertInput(host: HTMLElement, critNum: number,expertNum:number) {
@@ -85,7 +87,7 @@ function drawExpertInput(host: HTMLElement, critNum: number,expertNum:number) {
   input.min = "0";
   input.max = "100";
   input.value = "0";
-  input.id = "expert"+expertNum+"-input"+critNum;
+  input.id = "expert-"+expertNum+"-input-"+critNum;
   input.classList.add("expert-input");
   container.appendChild(input);
 }
@@ -123,6 +125,8 @@ export function drawWeightCalculated(host: HTMLElement, critNum: number, weight:
   container.appendChild(input);
 }
 
+
+
 export function initDrawRight(host: HTMLElement) {
   host.innerHTML = "";
   //drawNameInputs(host);
@@ -137,18 +141,12 @@ export function drawMatrix(host: HTMLElement) {
   container.appendChild(label);
 
   const containerCrits: HTMLElement = drawDiv("matrix-row-container", container);
-  // const labelRow: HTMLElement = document.createElement("label");
-  // labelRow.textContent = ".";
-  // containerCrits.appendChild(labelRow);
   const xField: HTMLInputElement = document.createElement("input");
   xField.type = "text";
   xField.value = "A/C";
   xField.readOnly = true;
   containerCrits.appendChild(xField);
   for (let i = 0; i < getCriteriaNumber(); i++) {
-    // const label: HTMLElement = document.createElement("label");
-    // label.textContent = "C" + (i + 1);
-    // containerCrits.appendChild(label);
     const critName: HTMLInputElement = document.createElement("input");
     critName.type = "text";
     critName.value = "C" + (i + 1);
@@ -158,13 +156,11 @@ export function drawMatrix(host: HTMLElement) {
 
   for (let i = 0; i < getAlternativeNumber(); i++) {
     const containerRow: HTMLElement = drawDiv("matrix-row-container", container);
-    // const label: HTMLElement = document.createElement("label");
-    // label.textContent = "A" + (i + 1);
-    // containerRow.appendChild(label);
     const altName: HTMLInputElement = document.createElement("input");
     altName.type = "text";
     altName.value = "A" + (i + 1);
-    altName.classList.add("alt-name-input" + i);
+    altName.classList.add("alt-name-input");
+    altName.id = "alt-name-input-" + (i+1);
     containerRow.appendChild(altName);
     for (let j = 0; j < getCriteriaNumber(); j++) {
       drawMatrixInput(containerRow, i + 1, j + 1);
@@ -172,43 +168,16 @@ export function drawMatrix(host: HTMLElement) {
   }
 }
 
-function drawMatrixInput(container: HTMLElement, arg1: number, arg2: number) {
+function drawMatrixInput(container: HTMLElement, alt: number, crit: number) {
   const input: HTMLInputElement = document.createElement("input");
   input.type = "number";
   input.min = "1";
   input.max = "10";
   input.value = "5";
-  input.classList.add("matrix-input" + arg1.toString() + arg2.toString());
+  input.classList.add("matrix-input");
+  input.id = "matrix-input-" + alt.toString()+'-' + crit.toString();
   container.appendChild(input);
 }
-
-function drawNameInputs(container: HTMLElement) {
-  // const containerName: HTMLElement = drawDiv("name-inputs-container", container);
-  // const altNamesContainer: HTMLElement = drawDiv("alt-names-container", containerName)
-  // const label: HTMLElement = document.createElement("label");
-  // label.textContent = "Names of alternatives:";
-  // altNamesContainer.appendChild(label);
-  // for (let i = 0; i < getAlternativeNumber(); i++) {
-  //   const input: HTMLInputElement = document.createElement("input");
-  //   input.type = "text";
-  //   input.value = "A" + (i + 1);
-  //   input.classList.add("alt-name-input" + i);
-  //   altNamesContainer.appendChild(input);
-  // }
-
-  // const crtNamesContainer: HTMLElement = drawDiv("crt-names-container", containerName)
-  // const labelcrt: HTMLElement = document.createElement("label");
-  // labelcrt.textContent = "Names of criterias:";
-  // crtNamesContainer.appendChild(labelcrt);
-  // for (let i = 0; i < getCriteriaNumber(); i++) {
-  //   const input: HTMLInputElement = document.createElement("input");
-  //   input.type = "text";
-  //   input.value = "C" + (i + 1);
-  //   input.classList.add("crt-name-input" + i);
-  //   crtNamesContainer.appendChild(input);
-  // }
-}
-
 
 export function initDrawPie(host: HTMLElement, values: number[], labels: string[]) {
   const container: HTMLElement = drawDiv("pie-container", host);
@@ -252,4 +221,13 @@ export function initDrawPie(host: HTMLElement, values: number[], labels: string[
     ctx.font = "12px Arial";
     ctx.fillText(moodValue.mood, labelX, labelY);
   }
+}
+
+function initDrawLabels(host: HTMLElement) {
+  const container: HTMLElement = drawDiv("labels-container", host);
+  const label: HTMLElement = document.createElement("label");
+  label.textContent = "Who did it last:";
+  label.classList.add("last-label");
+  container.appendChild(label);
+
 }
