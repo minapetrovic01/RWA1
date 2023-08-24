@@ -8,11 +8,37 @@
 
  let alternativeNames:string[]=[];
 
+ let decisionMatrix:number[][]=[];
+
+ export function initailWeights(){
+    weights=[];
+    for(let i=0;i<criteriaNumber;i++){
+        weights[i]=1/criteriaNumber;
+       // weights[i]=0;
+    }
+ }
+
  export function setAlternativeNames(){
     for(let i=0;i<alternativeNumber;i++){
         alternativeNames[i]="A"+(i+1);	
     }
  }
+
+    export function setDecisionMatrix(){
+        decisionMatrix=[];
+        for(let i=0;i<alternativeNumber;i++){
+            decisionMatrix[i]=[];
+            for(let j=0;j<criteriaNumber;j++){
+                decisionMatrix[i][j]=5;
+            }
+        }
+    }
+    export function getDecisionMatrix(){
+        return decisionMatrix;
+    }
+    export function setDecisionMatrixValue(value:number,alt:number,crit:number){
+        decisionMatrix[alt][crit]=value;
+    }
 
 export function setAlternativeNumber(num:number){
     alternativeNumber=num;

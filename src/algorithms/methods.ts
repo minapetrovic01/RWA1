@@ -1,5 +1,8 @@
 
 export function TOPSIS(matrixOfGrades:number[][],weights:number[],criteriaNumber:number,alternativeNumber:number):number[]{
+
+   // console.log(matrixOfGrades);
+    console.log(weights);
    const squaredColumnSums:number[] = getColumnSums(matrixOfGrades);
    const normalizedWeightedMatrix:number[][]=matrixOfGrades.map(row =>
         row.map((value, colIndex) => value / squaredColumnSums[colIndex]* weights[colIndex]));

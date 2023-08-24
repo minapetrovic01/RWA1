@@ -1,9 +1,10 @@
 import { Observable, Subscription, first } from "rxjs";
-import { addExpertsActive, changeExpertActive, getAlternativeNumber, getCriteriaNumber, getExpertNumber, reloadExpertsActive, setAlternativeName, setAlternativeNames, setAlternativeNumber, setCriteriaNumber, setExpertNumber } from "../globals";
+import { addExpertsActive, changeExpertActive, getAlternativeNumber, getCriteriaNumber, getDecisionMatrix, getExpertNumber, getWeights, initailWeights, reloadExpertsActive, setAlternativeName, setAlternativeNames, setAlternativeNumber, setCriteriaNumber, setDecisionMatrix, setDecisionMatrixValue, setExpertNumber } from "../globals";
 import { drawExpert, drawInit } from "../view/drawInitial";
 import { combineHandlers, handleAddExpertButton, handleAlternativeNameChange, handleExpertCheckbox, handleExpertInputChange, handleMatrixInput, handleNumberChange } from "./eventHandlers";
 import { drawContent, drawWeights } from "../view/draw";
 import { calculateWeights } from "./calculations";
+import { TOPSIS } from "../algorithms/methods";
 
 
 let checkboxSubscription:Subscription;
@@ -14,6 +15,8 @@ let matrixValueSubscription:Subscription;
 export function startSimulation(){   
     reloadExpertsActive();
     setAlternativeNames();
+    initailWeights();
+    setDecisionMatrix();
     handleInputs();
     handleExperts();
     handleExpertsInputChange();
@@ -136,6 +139,16 @@ function handleMatrixInputs(){
             console.log(data);
             //TODO: promene u matrici
             //TODO: promene u piti
+            onMatrixInputChange(data.grade,data.alternativeNumber-1,data.criteriaNumber-1);
         }
     );
 }
+function onMatrixInputChange(grade: number, altNum: number, critNum: number) {
+    setDecisionMatrixValue(grade,altNum,critNum);
+    //calculateWeights();
+    //drawWeights();
+    //setLastLabel(0,critNum+1,grade);
+    const grades:number[]=TOPSIS(getDecisionMatrix(),getWeights(),getCriteriaNumber(),getAlternativeNumber());
+    console.log(grades);
+}
+
