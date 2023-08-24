@@ -33,7 +33,7 @@
             }
         }
     }
-    export function getDecisionMatrix(){
+    export function getDecisionMatrix():number[][]{
         return decisionMatrix;
     }
     export function setDecisionMatrixValue(value:number,alt:number,crit:number){
@@ -82,5 +82,9 @@ export function getAlternativeNames():string[]{
     return alternativeNames;
 }
 export function setAlternativeName(name:string,id:number){
-    alternativeNames[id]=name;
+    if(name.length>0){
+        alternativeNames[id]=name;
+    }
+    else
+         alternativeNames[id]="A"+(id+1);
 }

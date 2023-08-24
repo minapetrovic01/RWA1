@@ -14,22 +14,7 @@ export function TOPSIS(matrixOfGrades:number[][],weights:number[],criteriaNumber
     
     
     let f:boolean=true;
-    // for(let i=0;i<normalizedWeightedMatrix.length;i++){
-    //     let psum:number=0;
-    //     let msum:number=0;
-    //     for(let j=0;j<normalizedWeightedMatrix[i].length;j++){
-    //        psum+=Math.pow(normalizedWeightedMatrix[i][j]-Vp[j],2);
-    //         msum+=Math.pow(normalizedWeightedMatrix[i][j]-Vm[j],2);
-    //     }
-    //     psum=Math.sqrt(psum);
-    //     msum=Math.sqrt(msum);
-    //     if(psum===0&&msum===0){
-    //         f=false;
-    //     }
-    //     else{
-    //        P[i]=msum/(msum+psum);
-    //     }
-    // }
+   
     const P: number[] = normalizedWeightedMatrix.map((row) => {
         const psum = Math.sqrt(row.reduce((sum, value, j) => sum + Math.pow(value - Vp[j], 2), 0));
         const msum = Math.sqrt(row.reduce((sum, value, j) => sum + Math.pow(value - Vm[j], 2), 0));

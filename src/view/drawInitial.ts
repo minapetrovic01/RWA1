@@ -2,6 +2,7 @@ import { fromEvent } from "rxjs";
 import { combineHandlers, handleExpertCheckbox, handleNumberChange } from "../logic/eventHandlers";
 import { addExpertsActive, getAlternativeNumber, getCriteriaNumber } from "../globals";
 import { Chart } from "chart.js";
+import { drawPie } from "./draw";
 
 export function drawInit(host: HTMLElement) {
   host.innerHTML = "";
@@ -11,6 +12,7 @@ export function drawInit(host: HTMLElement) {
   drawNumberPickers(left);
   initDrawLeftContent(left);
   initDrawRight(right);
+  //drawPie([0.5, 0.2, 0.1, 0.1, 0.1], ["ana", "dina", "kaja", "lana", "jana"]);
 }
 
 export function initDrawLeftContent(host: HTMLElement) {
@@ -29,7 +31,7 @@ function drawNumberPickers(host: HTMLElement): HTMLElement {
 
 export function drawDiv(className: string, host: HTMLElement): HTMLElement {
   const containerExisting = document.querySelector('.' + className);
-  if (containerExisting !== null && (className === "main-container" || className === "left-container" || className === "right-container" || className === "left-container-content" || className === "experts-container")) {
+  if (containerExisting !== null && (className === "main-container" || className === "left-container" || className === "right-container" || className === "left-container-content" || className === "experts-container"||className==="pie-container")) {
     containerExisting.innerHTML = "";
     return containerExisting as HTMLElement;
   }
@@ -127,11 +129,13 @@ export function drawWeightCalculated(host: HTMLElement, critNum: number, weight:
 
 
 
+
 export function initDrawRight(host: HTMLElement) {
   host.innerHTML = "";
   //drawNameInputs(host);
   drawMatrix(host);
-  initDrawPie(host, [0.5, 0.2, 0.1, 0.1, 0.1], ["ana", "dina", "kaja", "lana", "jana"]);
+  //initDrawPie(host, [0.5, 0.2, 0.1, 0.1, 0.1], ["ana", "dina", "kaja", "lana", "jana"]);
+  
 }
 
 export function drawMatrix(host: HTMLElement) {

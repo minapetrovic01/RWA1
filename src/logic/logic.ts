@@ -1,8 +1,8 @@
 import { Observable, Subscription, first } from "rxjs";
-import { addExpertsActive, changeExpertActive, getAlternativeNumber, getCriteriaNumber, getDecisionMatrix, getExpertNumber, getWeights, initailWeights, reloadExpertsActive, setAlternativeName, setAlternativeNames, setAlternativeNumber, setCriteriaNumber, setDecisionMatrix, setDecisionMatrixValue, setExpertNumber } from "../globals";
+import { addExpertsActive, changeExpertActive, getAlternativeNames, getAlternativeNumber, getCriteriaNumber, getDecisionMatrix, getExpertNumber, getWeights, initailWeights, reloadExpertsActive, setAlternativeName, setAlternativeNames, setAlternativeNumber, setCriteriaNumber, setDecisionMatrix, setDecisionMatrixValue, setExpertNumber } from "../globals";
 import { drawExpert, drawInit } from "../view/drawInitial";
 import { combineHandlers, handleAddExpertButton, handleAlternativeNameChange, handleExpertCheckbox, handleExpertInputChange, handleMatrixInput, handleNumberChange } from "./eventHandlers";
-import { drawContent, drawWeights } from "../view/draw";
+import { drawContent, drawPie, drawWeights } from "../view/draw";
 import { calculateWeights } from "./calculations";
 import { TOPSIS } from "../algorithms/methods";
 
@@ -71,6 +71,7 @@ function handleAlternativesNameChange(){
           //TODO: promene u piti
             console.log(data);
             setAlternativeName(data.value,data.altNum-1);
+           calculateAndDisplay();
         }
     );
 }
@@ -82,8 +83,10 @@ function handleExpertsInputChange(){
     }
     expertInputSubscription=handleExpertInputChange().subscribe(
         (data)=>{
+            calculateWeights();
             drawWeights();
             setLastLabel(data.expertNumber,data.criteriaNumber,data.value);
+            calculateAndDisplay();
         }
     );
 }
@@ -96,7 +99,9 @@ function handleExpertsCheckbox() {
         (data)=>{
             changeExpertActive(data.expertNumber-1,data.value);
             console.log(data);
+            calculateWeights();
             drawWeights();
+            calculateAndDisplay();
         }
     );
 }
@@ -110,6 +115,7 @@ function onAddExpertButtonClick(){
         setExpertNumber(numOfExperts+1);
         calculateWeights();
         drawWeights();
+        calculateAndDisplay();
     }
 }
 
@@ -148,7 +154,13 @@ function onMatrixInputChange(grade: number, altNum: number, critNum: number) {
     //calculateWeights();
     //drawWeights();
     //setLastLabel(0,critNum+1,grade);
-    const grades:number[]=TOPSIS(getDecisionMatrix(),getWeights(),getCriteriaNumber(),getAlternativeNumber());
-    console.log(grades);
+    calculateAndDisplay();
+    
 }
 
+function calculateAndDisplay(){
+    const grades:number[]=TOPSIS(getDecisionMatrix(),getWeights(),getCriteriaNumber(),getAlternativeNumber());
+    const labels:string[]=getAlternativeNames();
+    drawPie(grades,labels);
+    console.log(grades);
+}
