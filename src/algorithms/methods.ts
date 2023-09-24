@@ -32,7 +32,8 @@ export function TOPSIS(matrixOfGrades:number[][],weights:number[],criteriaNumber
         return result;
     }
     else{
-        const result:number[] = P.map((value) => value / alternativeNumber*100);
+        //const result:number[] = P.map((value) => value / alternativeNumber*100);
+        const result:number[] = P.map((value) => 1 / alternativeNumber*100);
         return result;
     }
 }

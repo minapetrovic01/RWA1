@@ -25,8 +25,8 @@ export function calculateWeights():number[]{
 
     const activeNumber:number=expertsActive.filter((e)=>e).length;
     if(activeNumber==0){
-        setWeights(Array(criteriaNumber).fill(0));
-        return Array(criteriaNumber).fill(0);
+        setWeights(Array(criteriaNumber).fill(1./criteriaNumber));
+        return Array(criteriaNumber).fill(1./criteriaNumber);
     }
     weights.forEach((w,i)=>weights[i]=w/activeNumber);
     setWeights(weights);

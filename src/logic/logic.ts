@@ -21,7 +21,8 @@ export function startSimulation(){
     handleExperts();
     handleExpertsInputChange();
     handleExpertsCheckbox();
-    //calculateWeights();
+    initailWeights();
+    drawWeights();
     handleAlternativesNameChange();
     handleMatrixInputs();
 }

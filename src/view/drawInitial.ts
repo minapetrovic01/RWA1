@@ -1,6 +1,6 @@
 import { fromEvent } from "rxjs";
 import { combineHandlers, handleExpertCheckbox, handleNumberChange } from "../logic/eventHandlers";
-import { addExpertsActive, getAlternativeNumber, getCriteriaNumber } from "../globals";
+import { addExpertsActive, getAlternativeNumber, getCriteriaNumber, getWeights } from "../globals";
 import { Chart } from "chart.js";
 import { drawPie } from "./draw";
 
@@ -106,10 +106,11 @@ export function initialDrawExperts(host: HTMLElement) {
 export function initDrawWeights(host: HTMLElement) {
   let container: HTMLElement = drawDiv("weights-container", host);
   const label: HTMLElement = document.createElement("label");
-  label.textContent = "Weights:";
+  label.textContent = "Weights ";
   container.appendChild(label);
+  const weights:number[]=getWeights();
   for (let i = 0; i < getCriteriaNumber(); i++) {
-    drawWeightCalculated(container, i + 1);
+    drawWeightCalculated(container, i + 1, weights[i]);
   }
 }
 
@@ -132,10 +133,7 @@ export function drawWeightCalculated(host: HTMLElement, critNum: number, weight:
 
 export function initDrawRight(host: HTMLElement) {
   host.innerHTML = "";
-  //drawNameInputs(host);
   drawMatrix(host);
-  //initDrawPie(host, [0.5, 0.2, 0.1, 0.1, 0.1], ["ana", "dina", "kaja", "lana", "jana"]);
-  
 }
 
 export function drawMatrix(host: HTMLElement) {
