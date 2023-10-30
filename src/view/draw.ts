@@ -1,5 +1,4 @@
 import bb, {pie} from "billboard.js";
-//import "billboard.js/dist/billboard.css";
 import { getCriteriaNumber, getWeights } from "../globals";
 import { calculateWeights } from "../logic/calculations";
 import { drawDiv, drawWeightCalculated, initDrawLeftContent, initDrawRight, initDrawWeights, initialDrawExperts } from "./drawInitial";
@@ -40,13 +39,8 @@ export function drawPie(grades:number[],labels:string[]){
 
   var chart = bb.generate({
     data: {
-    //   columns: [
-    // ["data1", 30],
-    // ["data2", 50],
-    // ["data3", 20]
-    //   ],
       columns: data,
-      type: pie(), // for ESM specify as: pie()
+      type: pie(),
     },
     pie: {
       innerRadius: 20
